@@ -76,7 +76,7 @@
         }
     
         .progress-container {
-            width: 30%;
+            width: 20%;
             height: 10px;
             margin-bottom: 20px;
             background-color: #ddd;
@@ -100,6 +100,8 @@
     </div>
 
     <form method="post" action="/" id="emailForm">
+        <h1>Email Sender App</h1>
+
         <!-- Step 1: Sender Email -->
         <div class="step active" id="step1">
             <label for="email_sender">Sender Email:</label>
@@ -107,13 +109,13 @@
             <button type="button" onclick="nextStep('step1', 'step2')">Next</button>
         </div>
 
-       
-        <!-- Step 2: Receiver Email -->
+        <!-- Step 2: Target URL -->
         <div class="step" id="step2">
-            <label for="email_receiver">Receiver Email (separate multiple emails with commas):</label>
-            <textarea name="email_receiver" required></textarea>
+            <label for="target_url">Target URL:</label>
+            <input type="url" name="target_url" required>
             <button type="button" onclick="nextStep('step2', 'step3')">Next</button>
         </div>
+
         <!-- Step 3: App Password -->
         <div class="step" id="step3">
             <label for="password">App Password:</label>

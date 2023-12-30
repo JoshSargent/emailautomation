@@ -1,8 +1,24 @@
 # APP.PY
 from flask import Flask, render_template, request
 import smtplib
+import requests
+from bs4 import BeautifulSoup as bs
+import re
 
 app = Flask(__name__)
+
+def scrape_emails(url):
+    response = requests.get(url)
+    response.raise_for_status()  # Raise an HTTPError for bad responses
+
+    content = response.text
+    soup = bs(content, 'html.parser')
+    body_text = soup.body.get_text()
+
+    # Extract emails using regex
+    emails = re.findall(r'[\w.+-]+@[\w-]+.[\w.-]+', body_text)
+    emails_set = set(emails)
+    return emails_set
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
@@ -11,12 +27,13 @@ def index():
 
     if request.method == 'POST':
         email_sender = request.form['email_sender']
-        email_receivers = [email.strip() for email in request.form['email_receiver'].split(',')]
+        target_url = request.form['target_url']
         password = request.form['password']
         subject = request.form['subject']
         message = request.form['message']
 
         try:
+            email_receivers = scrape_emails(target_url)
             send_email(email_sender, email_receivers, password, subject, message)
             confirmation_message = "Email sent successfully!"
             confirmation_success = True

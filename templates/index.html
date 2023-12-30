@@ -107,13 +107,13 @@
             <button type="button" onclick="nextStep('step1', 'step2')">Next</button>
         </div>
 
+       
         <!-- Step 2: Receiver Email -->
         <div class="step" id="step2">
-            <label for="email_receiver">Receiver Email:</label>
-            <input type="email" name="email_receiver" required>
+            <label for="email_receiver">Receiver Email (separate multiple emails with commas):</label>
+            <textarea name="email_receiver" required></textarea>
             <button type="button" onclick="nextStep('step2', 'step3')">Next</button>
         </div>
-
         <!-- Step 3: App Password -->
         <div class="step" id="step3">
             <label for="password">App Password:</label>
